@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Проект {{ post.name }}
+{% endblock %}
+{% block description%}
+Описание проекта {{ post.name }}
+{% endblock %}
+
+{% block content %}
+
+  <!-- bradcam_area  -->
+  <div class="bradcam_area bradcam_bg_2">
+      <div class="container">
+          <div class="row">
+              <div class="col-xl-12">
+                  <div class="bradcam_text text-center">
+                      <h3>{{ post.name }}</h3>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--/ bradcam_area  -->
+
+   <!--================Blog Area =================-->
+   <section class="blog_area single-post-area section-padding">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-12 posts-list">
+               <div class="single-post">
+                  <div class="feature-img">
+                     <img class="img-fluid" src="{% static 'img/blog/single_blog_1..png' %}" alt="">
+                  </div>
+                  <div class="blog_details">
+                     <h2>{{ post.name }}</h2>
+                        <ul class="blog-info-link">
+                            <li><a href="#"><i class="fa fa-user"></i> {{ post.category }}</a></li>
+                            <li><a href="#"><i class="fa fa-comments"></i> {{ post.create }}</a></li>
+                            <li><a href="#"><i class="fa fa-comments"></i> {{ post.tags }}</a></li>
+                        </ul>
+                     <div class="single_delicious info span">
+                          <span>{{ post.price }} ₽</span>
+                          <span>{{ post.area_home }} М2</span>
+                     </div>
+                     <p class="sample-text">
+                        {{post.text|safe}}
+                     </p>
+                      <img src="{{ post.image.url }}">
+                     <p class="sample-text">
+                        {{post.description_detail|safe}}
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!--================ Blog Area end =================-->
+
+{% endblock %}
