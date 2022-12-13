@@ -1,3 +1,6 @@
+from django.contrib.auth.decorators import login_required, user_passes_test
+# from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from .models import Post, Tag
@@ -133,7 +136,9 @@ class TagDetailView(DetailView, NameContextMixin):
         return get_object_or_404(Tag, pk=self.tag_id)
 
 # создание тега
-class TagCreateView(CreateView, NameContextMixin):
+# Важно LoginRequiredMixin - он должен идти 1-ым
+
+class TagCreateView(LoginRequiredMixin, CreateView, NameContextMixin):
     # form_class =
     fields = '__all__'
     model = Tag

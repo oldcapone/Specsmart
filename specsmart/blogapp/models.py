@@ -2,8 +2,12 @@ from django.db import models
 
 # Create your models here.
 class Category(models.Model):
-    name = models.CharField(max_length=20, unique=True)
-    description = models.TextField(blank=True)
+    name = models.CharField(max_length=20, unique=True, verbose_name='Название')
+    description = models.TextField(blank=True, verbose_name='Описание')
+#Описание в админке
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
  # Основные типы полей
     # дата
     # models.DateField

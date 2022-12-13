@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blogapp.urls', namespace='blog')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('users/', include('usersapp.urls', namespace='users')),
 
 ]
 # Для того чтобы медия работала на локальном сервере
