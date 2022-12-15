@@ -92,22 +92,6 @@
     </div>
     <!-- about_area_end -->
     <div class="container">
-        <div class="row">
-            {% for item in posts %}
-            <div class="col-xl-6 col-md-6 col-lg-6">
-                <div class="single_delicious d-flex align-items-center">
-                    <div class="thumb">
-                        <img src="{% static 'img/gallery/1.jpg ' %}" alt="" width="200">
-                    </div>
-                    <div class="info">
-                        <h3><a href="{% url 'blog:post' id=item.id %}">{{ item.name }}</a></h3>
-                         <p>{{ item.text|safe }}</p>
-                        <span>20 950 000 ₽</span>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
 
     <!-- Delicious area start  -->
     <div class="Delicious_area">
@@ -278,12 +262,16 @@
             <div class="col-xl-6 col-md-6 col-lg-6">
                 <div class="single_delicious d-flex align-items-center">
                     <div class="thumb">
-                        <img src="{% static 'img/gallery/1.jpg ' %}" alt="" width="200">
+                        {% if item.has_image %}
+                             <img src="media/{{ item.image }}" alt=""  width="200">
+                            {% else %}
+                            <img src="media/none-foto.png" alt=""  width="150">
+                        {% endif %}
                     </div>
                     <div class="info">
                         <h3><a href="{% url 'blog:post' id=item.id %}">{{ item.name }}</a></h3>
                          <p>{{ item.text|safe }}</p>
-                        <span>{{ item.price }} ₽</span>
+                        <span>{{ item.price_str}} ₽</span>
                     </div>
                 </div>
             </div>

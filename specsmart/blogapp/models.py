@@ -55,6 +55,19 @@ class Post(models.Model):
     # Связь с тегом
     tags = models.ManyToManyField(Tag)
     image = models.ImageField(upload_to='posts', null=True, blank=True)
+
+    # Метод проверки картинки
+    def has_image(self):
+        return bool(self.image)
+
+    # Метод разбивает цену на разряды
+    def price_str(self):
+        return '{0:,}'.format(self.price).replace(',', ' ')
+
+    def some_method(self):
+        return 'hello from method'
+
     def __str__(self):
-        return self.name
+        return f'{self.name}, category: {self.category.name}'
+
 
