@@ -33,15 +33,39 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+class ActiveManager(models.Manager):
 
-class Tag(models.Model):
+    def get_queryset(self):
+        all_objects = super().get_queryset()
+        return all_objects.filter(is_active=True)
+
+class IsActiveMixin(models.Model):
+    objects = models.Manager()
+    active_objects = ActiveManager()
+    is_active = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
+
+class TimeStamp(models.Model):
+    """
+    Abstract - для нее не создаются новые таблицы
+    данные хранятся в каждом наследнике
+    """
+    create = models.DateTimeField(auto_now_add=True)
+    update = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+class Tag(IsActiveMixin):
     name = models.CharField(max_length=16, unique=True)
 
     def __str__(self):
         return self.name
 
 
-class Post(models.Model):
+class Post(TimeStamp, IsActiveMixin):
     name = models.CharField(max_length=32, unique=True)
     text = models.TextField()
     description_detail = models.TextField(blank=True)
@@ -55,6 +79,7 @@ class Post(models.Model):
     # Связь с тегом
     tags = models.ManyToManyField(Tag)
     image = models.ImageField(upload_to='posts', null=True, blank=True)
+    rating = models.PositiveSmallIntegerField(default=1)
 
     # Метод проверки картинки
     def has_image(self):
@@ -66,6 +91,11 @@ class Post(models.Model):
 
     def some_method(self):
         return 'hello from method'
+
+    def display_tags(self):
+        tags = self.tags.all()
+        result = ';'.join([item.name for item in tags])
+        return result
 
     def __str__(self):
         return f'{self.name}, category: {self.category.name}'

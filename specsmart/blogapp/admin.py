@@ -12,9 +12,27 @@ class PostAdminForm(forms.ModelForm):
         model = Post
         fields = '__all__'
 
+def clear_price(modeladmin, request, queryset):
+    queryset.update(price='0')
+clear_price.short_description = "Сбросить цены"
+
+def set_active(modeladmin, request, queryset):
+    queryset.update(is_active=True)
+set_active.short_description = "Активировать"
+
+def set_deactive(modeladmin, request, queryset):
+    queryset.update(is_active=False)
+set_deactive.short_description = "Дективировать"
+
 class PostAdmin(admin.ModelAdmin):
     form = PostAdminForm
+    list_display = ['name', 'category', 'display_tags', 'price', 'create', 'rating', 'is_active']
+    actions = [clear_price, set_active, set_deactive]
+
+class TagAdmin(admin.ModelAdmin):
+    list_display = ['name', 'is_active']
+    actions = [set_active, set_deactive]
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Category)
-admin.site.register(Tag)
+admin.site.register(Tag, TagAdmin)

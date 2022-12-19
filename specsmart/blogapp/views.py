@@ -32,7 +32,7 @@ class MainView(ListView, NameContextMixin):
         Получение данных
         :return:
         """
-        return Post.objects.all()
+        return Post.objects.filter(is_active = True)
 
 class AboutDetailView(TemplateView):
     template_name = 'blogapp/about.html'
