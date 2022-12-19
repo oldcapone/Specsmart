@@ -40,8 +40,10 @@
                             <li><a href="#"><i class="fa fa-comments"></i> {{ post.tags }}</a></li>
                         </ul>
                      <div class="single_delicious info span">
-                          <span>{{ post.price }} ₽</span>
-                          <span>{{ post.area_home }} М2</span>
+                         <div class="info">
+                            <b><span>Цена: <b/> {{ post.price_str}} ₽</span>
+                         </div>
+                          <span>Площадь: {{ post.area_home }} М2</span>
                      </div>
                      <p class="sample-text">
                         {{post.text|safe}}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  О компании
+{% endblock %}
+{% block description%}
+Описание сайта О компании
+{% endblock %}
+
+{% block content %}
+    <div class="bradcam_area bradcam_bg_1">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="bradcam_text text-center">
+                        <h3>{{name}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ bradcam_area  -->
+<div class="container">
+    <div class="row">
+        <div class="col-xl-12">
+            <ul>
+                {% for item in object_list %}
+                <li>
+                    <a href="{% url 'blog:tag_detail' pk=item.pk %}">
+                        {{item.name}}
+                    </a>
+                </li>
+                {%endfor%}
+                <a href="{% url 'blog:tag_create' %}"> Создать </a>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
